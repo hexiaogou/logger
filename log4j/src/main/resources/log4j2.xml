@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <properties>
+        <property name="log.pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} -> %msg%n</property>
+        <property name="file.err.filename">log/err.log</property>
+        <property name="file.err.pattern">log/err.%i.log.gz</property>
+    </properties>
+    <appenders>
+        <console name="console" target="SYSTEM_OUT">
+            <patternlayout pattern="${log.pattern}"/>
+        </console>
+        <rollingfile name="err" bufferedIO="true" filename="${file.err.filename}" filepattern="${file.err.pattern}">
+            <patternlayout pattern="${log.pattern}"/>
+            <policies>
+                <sizebasedtriggeringpolicy size="1MB"/>
+            </policies>
+            <defaultrolloverstrategy max="10"/>
+        </rollingfile>
+    </appenders>
+    <loggers>
+        <root level="info">
+            <appenderref ref="console" level="info"/>
+            <appenderref ref="err" level="error"/>
+        </root>
+    </loggers>
+</configuration>
